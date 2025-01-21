@@ -1,0 +1,19 @@
+.container img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+.question {
+  font-size: 32px;
+}
+.correct {
+  background-color: green;
+}
+.wrong {
+  background-color: red;
+}
+.options {
+  font-size: 24px;
+  list-style: none;
+  margin-bottom: 2rem;
+}
