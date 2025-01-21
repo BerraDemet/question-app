@@ -1,0 +1,29 @@
+.finish-container {
+  border: 1px solid black;
+  max-width: 1440px;
+  width: 100%;
+  height: auto;
+  padding: 2rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.finish-container ul li {
+  list-style: none;
+}
+.scores {
+  padding: 0;
+}
+
+.scores-part {
+  display: flex;
+  margin-bottom: 0.5rem;
+  background-color: rgb(142, 255, 127);
+}
+.part-item {
+  width: 100%;
+}
+.line {
+  width: 1rem;
+  background-color: black;
+}
