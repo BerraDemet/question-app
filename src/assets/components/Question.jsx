@@ -12,8 +12,20 @@ export default function Question() {
   const [finish, setFinish] = useState(false);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   const optionsRef = useRef([]);
+
+  // AFTER 4 SECONDS
+  useEffect(() => {
+    setIsOptionsOpen(false);
+
+    const timerOptions = setTimeout(() => {
+      setIsOptionsOpen(true);
+    }, 4000);
+
+    return () => clearTimeout(timerOptions);
+  }, [index]);
 
   // CHECK ANSWER
   const checkAnswer = (e, answer) => {
@@ -30,10 +42,9 @@ export default function Question() {
         });
       }
 
-      // Kullanıcı cevabını kaydet
       setUserAnswers((prevAnswers) => {
         const newAnswers = [...prevAnswers];
-        newAnswers[index] = answer; // Sorunun sırasına göre cevabı kaydet
+        newAnswers[index] = answer;
         return newAnswers;
       });
 
@@ -45,7 +56,7 @@ export default function Question() {
   const handleNext = () => {
     if (lock || time === 0) {
       if (index + 1 >= questions.length) {
-        setFinish(true); // Quiz bitiş ekranına geç
+        setFinish(true);
       } else {
         setIndex((prevIndex) => prevIndex + 1);
         setQuestion(questions[index + 1]);
@@ -68,7 +79,7 @@ export default function Question() {
     } else {
       const timer = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
-      }, 200);
+      }, 2000);
 
       return () => clearInterval(timer);
     }
@@ -80,21 +91,35 @@ export default function Question() {
         <Finish score={score} questions={questions} userAnswers={userAnswers} />
       ) : (
         <>
-          <img src={question.media} alt="question visual" />
-          <p className="question">{question.question}</p>
-          <ul className="options">
-            {question.options.map((option, index) => (
-              <li
-                key={index}
-                ref={(e) => (optionsRef.current[index] = e)}
-                onClick={(e) => checkAnswer(e, option)}
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleNext}>Next</button>
           <p className="timer">{time}</p>
+          <div>
+            <div className="question-container">
+              <img
+                className="question-img"
+                src={question.media}
+                alt="question visual"
+              />
+              <p className="question">{question.question}</p>
+            </div>
+            {isOptionsOpen ? (
+              <ul className="options">
+                {question.options.map((option, index) => (
+                  <li
+                    key={index}
+                    ref={(e) => (optionsRef.current[index] = e)}
+                    onClick={(e) => checkAnswer(e, option)}
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div></div>
+            )}
+            <button className="next-button" onClick={handleNext}>
+              NEXT
+            </button>
+          </div>
         </>
       )}
     </div>

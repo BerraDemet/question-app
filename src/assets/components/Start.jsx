@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Question from "./Question";
+import "./start.css";
 
 export default function Start() {
   const [startTest, setStartTest] = useState(false);
@@ -8,17 +9,20 @@ export default function Start() {
     setStartTest(true);
   };
   return (
-    <div className="container">
+    <div className="start-container">
       {!startTest ? (
         <>
-          <h1>Welcome to QUIZ</h1>
-          <ul>
-            <li>Bu sınavda 10 soru bulunmaktadır.</li>
-            <li>Her soru için 30 saniyeniz vardır.</li>
-            <li>Önceki soruya geri dönüş yoktur.</li>
-            <li>Sonuçlarınız en sonda görünecektir.</li>
+          <img className="logo-img" src="img/quiz.png"></img>
+          <h1 className="header"> QUIZ TIME</h1>
+          <ul className="instructions">
+            <li>There are 10 questions in this exam.</li>
+            <li>You have 30 seconds for each question.</li>
+            <li>You cannot go back to the previous question.</li>
+            <li>Your results will be displayed at the end.</li>
           </ul>
-          <button onClick={handleStart}>Start</button>
+          <button className="start-button" onClick={handleStart}>
+            Start
+          </button>
         </>
       ) : (
         <Question />

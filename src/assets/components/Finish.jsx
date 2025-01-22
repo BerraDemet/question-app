@@ -3,22 +3,35 @@ import "./finish.css";
 
 export default function Finish({ score, questions, userAnswers }) {
   return (
-    <div className="finish-container">
+    <>
       <div className="heading-wrapper">
         <h1>End Of The Quiz</h1>
-        <p>Your score: {score}</p>
+        <p className="score-item">
+          Score <span>{score}</span>
+        </p>
       </div>
       <ul className="scores">
-        {questions.map((question, index) => (
-          <li className="scores-part" key={index}>
-            <p className="part-item">Question {index + 1}:</p>
-            <p className="part-item">Correct Answer: {question.answer}</p>
-            <p className="part-item">
-              Your Answer: {userAnswers[index] || "No answer"}
-            </p>
-          </li>
-        ))}
+        {questions.map((question, index) => {
+          const isCorrect = userAnswers[index] === question.answer;
+
+          return (
+            <li
+              className={`scores-part ${isCorrect ? "correct" : "wrong"}`}
+              key={index}
+            >
+              <p className="part-item">{index + 1}</p>
+              <div className="line"></div>
+              <p className="part-item">
+                Your Answer: {userAnswers[index] || "Empty"}
+              </p>
+              <p className="part-item">
+                <span className="correct-answer">Correct Answer:</span>{" "}
+                {question.answer}
+              </p>
+            </li>
+          );
+        })}
       </ul>
-    </div>
+    </>
   );
 }
