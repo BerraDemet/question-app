@@ -79,7 +79,7 @@ export default function Question() {
     } else {
       const timer = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
-      }, 2000);
+      }, 1000);
 
       return () => clearInterval(timer);
     }
